@@ -52,8 +52,6 @@ export async function GET(req: NextRequest) {
     }
   }, { status: 500 });
 }
-
-
     return NextResponse.json({ token: data }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: 'Błąd przy żądaniu do Etsy' }, { status: 500 });
