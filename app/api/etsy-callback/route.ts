@@ -42,8 +42,17 @@ export async function GET(req: NextRequest) {
     const data = await res.json();
 
     if (!res.ok) {
-      return NextResponse.json({ error: data }, { status: 500 });
+  return NextResponse.json({
+    error: 'Token exchange failed',
+    details: data,
+    sent: {
+      client_id,
+      redirect_uri,
+      code
     }
+  }, { status: 500 });
+}
+
 
     return NextResponse.json({ token: data }, { status: 200 });
   } catch (error) {
