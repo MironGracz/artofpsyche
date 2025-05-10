@@ -1,10 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
-  const code = req.nextUrl.searchParams.get('code');
+  const url = req.nextUrl;
+  const code = url.searchParams.get('code');
+  const error = url.searchParams.get('error');
+
+  console.log('Query params:', url.searchParams.toString());
+
+  if (error) {
+    return NextResponse.json({ error });
+  }
 
   if (!code) {
-    return NextResponse.json({ error: 'Brakuje kodu autoryzacyjnego' }, { status: 400 });
+    return NextResponse.json({
+      error: 'Brakuje kodu autoryzacyjnego',
+      debug: url.toString(), // dodane
+    });
   }
 
   const client_id = 'iysbdfdkxgevnjasba5pxtuu';
